@@ -1,0 +1,29 @@
+{
+  "name": "playwrightframework2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env ENV_NAME=dev npx playwright test",
+    "demo": "cross-env ENV_NAME=demo npx playwright test",
+    "demo_chrome_headed": "cross-env ENV_NAME=demo npx playwright test --project=chromium --headed --ui",
+    "demo_chrome_headless": "cross-env ENV_NAME=demo npx playwright test --project=chromium",
+    "demo_firefox_headed": "cross-env ENV_NAME=demo npx playwright test --project=firefox --headed",
+    "UAT_demo_chrome_headed": "cross-env ENV_NAME=demo npx playwright test --project=chromium --grep=@UAT --headed --ui",
+    "VISUAL_demo_chrome_headed": "cross-env ENV_NAME=demo npx playwright test --project=chromium --grep=@VISUAL --headed",
+    "demo_chrome_headed_last_failed": "cross-env ENV_NAME=demo npx playwright test --project=chromium --last-failed --headed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.2"
+  },
+  "dependencies": {
+    "cross-env": "^10.1.0",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.4.2"
+  }
+}

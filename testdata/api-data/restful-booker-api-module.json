@@ -1,0 +1,35 @@
+{
+    "content_type": "application/json; charset=utf-8",
+    "booking_id": "560",
+    "booking_id_PUT": "103",
+    "booking_id_PATCH": "563",
+    "booking_id_DELETE": "101",
+    "firstname": "Josh",
+    "create_booking": {
+        "firstname": "Jim",
+        "lastname": "Brown",
+        "totalprice": 111,
+        "depositpaid": true,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+        "additionalneeds": "Breakfast"
+    },
+    "update_booking": {
+        "firstname": "updateFirstName",
+        "lastname": "updateLastName",
+        "totalprice": 111,
+        "depositpaid": true,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+        "additionalneeds": "Breakfast"
+    },
+    "partial_update_booking":{
+        "firstname": "partialFirstName",
+        "lastname": "partialLastName"
+    }
+
+}

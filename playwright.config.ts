@@ -14,8 +14,8 @@ dotenv.config({
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 30*1000,
-  testDir: './tests',
+  timeout: 30 * 1000,
+  testDir: './tests/ui-tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,44 +26,62 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html']],
-  expect:{
-    timeout: 20*1000,
+  expect: {
+    timeout: 20 * 1000,
   },
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-     baseURL: 'https://restful-booker.herokuapp.com',
-
+    /*  baseURL: 'https://restful-booker.herokuapp.com', */
+    /* baseURL: process.env.API_BASE_URL,
+     extraHTTPHeaders: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    // Authorization: 'Basic YWRtaW46cGFzc3dvcmQxMjM=' 
+    }, */
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
-    video:'retain-on-failure',
-    screenshot:'only-on-failure',
-  }, 
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+  },
 
   /* Configure projects for major browsers */
   projects: [
     {
-        name:'setup',
-        testMatch:'global.setup.ts'
+      name: 'setup',
+      testMatch: 'global.setup.ts'
     },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], storageState:'./playwright/.auth/state.json' },
-      dependencies:['setup']
+      use: { ...devices['Desktop Chrome'], storageState: './playwright/.auth/state.json' },
+      dependencies: ['setup']
     },
 
     {
       name: 'firefox',
-      dependencies:['setup'],
-      use: { ...devices['Desktop Firefox'], storageState:'./playwright/.auth/state.json' },
+      dependencies: ['setup'],
+      use: { ...devices['Desktop Firefox'], storageState: './playwright/.auth/state.json' },
     },
 
     {
       name: 'webkit',
-      dependencies:['setup'],
-      use: { ...devices['Desktop Safari'], storageState:'./playwright/.auth/state.json' },
-      
+      dependencies: ['setup'],
+      use: { ...devices['Desktop Safari'], storageState: './playwright/.auth/state.json' },
+
     },
+    {
+      name: 'apiTest',
+      testDir: './tests/api-tests',
+      use: {
+        baseURL: process.env.API_BASE_URL,
+        extraHTTPHeaders: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          // Authorization: 'Basic YWRtaW46cGFzc3dvcmQxMjM=' 
+
+        }
+      }
+    }
 
     /* Test against mobile viewports. */
     // {

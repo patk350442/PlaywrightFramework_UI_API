@@ -30,6 +30,17 @@
     "partial_update_booking":{
         "firstname": "partialFirstName",
         "lastname": "partialLastName"
+    },
+    "dynamic_create_booking": {
+        "firstname": "{{0}}",
+        "lastname": "{{1}}",
+        "totalprice": "{{2}}",
+        "depositpaid": true,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+        "additionalneeds": "Breakfast"
     }
 
 }

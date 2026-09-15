@@ -1,23 +1,19 @@
 import {test} from '../../fixtures/hooks-fixture';
 import { expect } from '@playwright/test';  
 
-test('Mock API request in playwright', async ({ page }) => {
+test('Mock API from HAR file in playwright', async ({ page }) => {
 
-    // Mock API request
-    await page.route('*/**/api/v1/fruits', async route => {
-        const json = [
-            { name: 'playwright typescript by testers talk', id: 12 },
-            { name: 'playwright javascript by testers talk', id: 13 },
-            { name: 'cypress by testers talk', id: 14 },
-            { name: 'api testing by testers talk', id: 15 },
-        ];
-        await route.fulfill({ json });
+    // Recording a HAR file
+    await page.routeFromHAR('./har/fruits.har', {
+        url: '*/**/api/v1/fruits',
+        update: false
     })
 
     // Go to URL
     await page.goto('https://demo.playwright.dev/api-mocking/');
 
     // Validate text
+    await expect(page.getByText('Strawberry')).toBeVisible();
     await expect(page.getByText('playwright typescript by testers talk')).toBeVisible();
     await expect(page.getByText('playwright javascript by testers talk')).toBeVisible();
     await expect(page.getByText('cypress by testers talk')).toBeVisible();
